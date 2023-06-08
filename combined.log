@@ -1,0 +1,31 @@
+{
+  level: 'info',
+  message: 'unable to parse mysqlEnv, err: Unexpected token u in JSON at position 0',
+  stack: 'SyntaxError: Unexpected token u in JSON at position 0\n' +
+    '    at JSON.parse (<anonymous>)\n' +
+    '    at Object.<anonymous> (C:\\Users\\RAHUL BISWAS\\Downloads\\api-node-2-register_brand\\api-node-2-register_brand\\src\\config\\mysql.js:6:19)\n' +
+    '    at Module._compile (node:internal/modules/cjs/loader:1119:14)\n' +
+    '    at Module._extensions..js (node:internal/modules/cjs/loader:1173:10)\n' +
+    '    at Module.load (node:internal/modules/cjs/loader:997:32)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:838:12)\n' +
+    '    at Module.require (node:internal/modules/cjs/loader:1021:19)\n' +
+    '    at require (node:internal/modules/cjs/helpers:103:18)\n' +
+    '    at Object.<anonymous> (C:\\Users\\RAHUL BISWAS\\Downloads\\api-node-2-register_brand\\api-node-2-register_brand\\src\\index.js:9:33)\n' +
+    '    at Module._compile (node:internal/modules/cjs/loader:1119:14)\n' +
+    '    at Module._extensions..js (node:internal/modules/cjs/loader:1173:10)\n' +
+    '    at Module.load (node:internal/modules/cjs/loader:997:32)\n' +
+    '    at Module._load (node:internal/modules/cjs/loader:838:12)\n' +
+    '    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:81:12)\n' +
+    '    at node:internal/main/run_main_module:18:47',
+  timestamp: '2023-06-08T05:31:02.920Z'
+}
+{
+  message: 'server started on port 3000 (development)',
+  level: 'info',
+  timestamp: '2023-06-08T05:31:03.010Z'
+}
+{
+  message: 'MongoDB connected...',
+  level: 'info',
+  timestamp: '2023-06-08T05:31:03.691Z'
+}
