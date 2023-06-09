@@ -1,5 +1,5 @@
 const brand_registration_model = require("../../models/brand_register");
-const mongoose = require("mongoose");
+const Seller = require("../../models/seller_auth");
 const cloudinary = require("../../utils/cloudinary");
 const logger = require("../../../config/logger");
 
@@ -14,13 +14,17 @@ exports.create_brand_registration = async (req, res) => {
     }
     const {
       brand_name,
+      brand_logo,
+      brand_description,
       trademark_office,
       trademark_reg_no,
       trademark_status,
       trademark_type,
       images,
       seller,
+      is_selling_acount,
       vendor,
+      vendor_code,
       neither,
       product_category,
       ASINs_no,
@@ -32,34 +36,35 @@ exports.create_brand_registration = async (req, res) => {
       is_license_sell_on_amazon,
     } = req.body;
 
-    const uploadResponses = await Promise.all(
-      images.map((image) => {
-        return cloudinary.uploader.upload(image, {
-          upload_preset: "21genx_brand_product_images",
-        });
-      })
-    );
+    const logoUploadResponse = await cloudinary.uploader.upload(brand_logo, {
+      upload_preset: "21genx_brands",
+    });
 
-    var imageData = {};
+    const brand_logo_url = logoUploadResponse.secure_url;
+    const brand_logo_public_id = logoUploadResponse.public_id;
 
-    for (let i = 0; i < uploadResponses.length; i++) {
-      const img = {};
-      img["secure_url"] = uploadResponses[i].secure_url;
-      img["public_id"] = uploadResponses[i].public_id;
+    const uploadResponses = await cloudinary.uploader.upload(images, {
+      upload_preset: "21genx_brand_product_images",
+    });
 
-      imageData["img_" + (i + 1)] = img;
-      //imageData.push(img);
-    }
-    console.log(">>>>>>>>>>>>> image_Data", imageData);
+    const brand_product_url = uploadResponses.secure_url;
+    const brand_product_public_id = uploadResponses.public_id;
 
     const registration_data = new brand_registration_model({
       brand_name,
+      brand_logo: {
+        url: brand_logo_url,
+        public_id: brand_logo_public_id,
+      },
+      brand_description,
       trademark_office,
       trademark_reg_no,
       trademark_status,
       trademark_type,
       seller,
+      is_selling_acount,
       vendor,
+      vendor_code,
       neither,
       ASINs_no,
       product_category,
@@ -69,7 +74,10 @@ exports.create_brand_registration = async (req, res) => {
       product_distributed_to_country,
       license_information,
       is_license_sell_on_amazon,
-      images: imageData,
+      images: {
+        url: brand_product_url,
+        public_id: brand_product_public_id,
+      },
     });
     console.log(">>>>>>>>>", registration_data);
     const saved_registration_data = await registration_data.save();
@@ -240,5 +248,23 @@ exports.view_single_brand = async (req, res) => {
     logger.error(errorMessage);
     console.error(error);
     res.status(500).json({ error: "Error occurred while fetching brand data" });
+  }
+};
+
+exports.getSellerInfo = async (req, res) => {
+  try {
+    const { sellerId } = req.params;
+
+    const seller = await Seller.findById(sellerId);
+    if (!seller) {
+      return res.status(404).json({ error: "Seller not found" });
+    }
+    const { seller_id, store_name } = seller;
+    res.status(200).json({ seller_id, store_name });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Error occurred while retrieving seller information" });
   }
 };
