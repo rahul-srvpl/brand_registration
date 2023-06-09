@@ -36,9 +36,9 @@ const brad_register_Schema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    is_selling_acount: {
-      type: Boolean,
-      default: false,
+     is_selling_acount: {
+      type: String,
+      default: "NA",
     },
     vendor: {
       type: Boolean,
