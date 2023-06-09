@@ -5,6 +5,13 @@ const brad_register_Schema = new mongoose.Schema(
     brand_name: {
       type: String,
     },
+    brand_logo: {
+      url: { type: String },
+      public_id: { type: String },
+    },
+    brand_description: {
+      type: String,
+    },
     trademark_office: {
       type: String,
     },
@@ -22,16 +29,23 @@ const brad_register_Schema = new mongoose.Schema(
       message: "trademark_type must have value of 'word mark' or 'device mark'",
     },
     images: {
-      type: Object,
-      required: true,
+      url: { type: String },
+      public_id: { type: String },
     },
     seller: {
+      type: Boolean,
+      default: false,
+    },
+    is_selling_acount: {
       type: Boolean,
       default: false,
     },
     vendor: {
       type: Boolean,
       default: false,
+    },
+    vendor_code: {
+      type: String,
     },
     neither: {
       type: Boolean,
