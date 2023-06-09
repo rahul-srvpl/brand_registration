@@ -125,12 +125,15 @@ exports.view_register_data = async (req, res) => {
         {
           $project: {
             brand_name: 1,
+            brand_logo:1,
+            brand_description:1,
             trademark_office: 1,
             trademark_reg_no: 1,
             trademark_status: 1,
             trademark_type: 1,
             seller: 1,
             vendor: 1,
+            vendor_code:1,
             neither: 1,
             ASINs_no: 1,
             "product_category_details.category_name": 1,
@@ -208,12 +211,15 @@ exports.view_single_brand = async (req, res) => {
         {
           $project: {
             brand_name: 1,
+            brand_logo:1,
+            brand_description:1,
             trademark_office: 1,
             trademark_reg_no: 1,
             trademark_status: 1,
             trademark_type: 1,
             seller: 1,
             vendor: 1,
+            vendor_code:1,
             neither: 1,
             ASINs_no: 1,
             "product_category_details.category_name": 1,
