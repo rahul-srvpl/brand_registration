@@ -300,6 +300,23 @@ exports.get_brand_by_seller_id = async (req, res) => {
   }
 };
 
+eexports.get_brand_by_seller_id = async (req, res) => {
+  try {
+    const { seller_id } = req.params;
+    const brand = await brand_registration_model.find({ seller_id });
+    if (brand.length === 0) {
+      return res.status(404).json({ error: "Seller has no brand" });
+    }
+    const { _id, brand_name } = brand[0];
+    res.status(200).json({ _id, brand_name });
+  } catch (error) {
+    console.error(error);
+    res
+      .status(500)
+      .json({ error: "Error occurred while retrieving seller information" });
+  }
+};
+
 exports.update_brand_registration = async (req, res) => {
   try {
     const { brand_name, brand_logo, product_images } = req.body;
@@ -312,6 +329,14 @@ exports.update_brand_registration = async (req, res) => {
       logger.error(errorMessage);
       console.log(errorMessage);
       return res.status(400).send({ error: "Brand does not exist" });
+    }
+
+    if (existingBrand.brand_logo && existingBrand.brand_logo.public_id) {
+      await cloudinary.uploader.destroy(existingBrand.brand_logo.public_id);
+    }
+
+    if (existingBrand.product_images && existingBrand.product_images.public_id) {
+      await cloudinary.uploader.destroy(existingBrand.product_images.public_id);
     }
 
     if (brand_logo) {
