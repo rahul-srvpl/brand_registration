@@ -300,7 +300,7 @@ exports.get_brand_by_seller_id = async (req, res) => {
   }
 };
 
-eexports.get_brand_by_seller_id = async (req, res) => {
+exports.get_brand_by_seller_id = async (req, res) => {
   try {
     const { seller_id } = req.params;
     const brand = await brand_registration_model.find({ seller_id });
