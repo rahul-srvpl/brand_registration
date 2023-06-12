@@ -1,9 +1,13 @@
 const mongoose = require("mongoose");
-
 const brad_register_Schema = new mongoose.Schema(
   {
+    seller_id: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
     brand_name: {
       type: String,
+      required: true,
     },
     brand_logo: {
       url: { type: String },
@@ -11,12 +15,15 @@ const brad_register_Schema = new mongoose.Schema(
     },
     brand_description: {
       type: String,
+      required: true,
     },
     trademark_office: {
       type: String,
+      required: true,
     },
     trademark_reg_no: {
       type: String,
+      required: true,
     },
     trademark_status: {
       type: String,
@@ -28,30 +35,30 @@ const brad_register_Schema = new mongoose.Schema(
       enum: ["word mark", "device mark"],
       message: "trademark_type must have value of 'word mark' or 'device mark'",
     },
-    images: {
+    product_images: {
       url: { type: String },
       public_id: { type: String },
     },
-    seller: {
+    is_seller: {
       type: Boolean,
       default: false,
     },
-     is_selling_acount: {
+    is_selling_acount: {
       type: String,
       default: "NA",
     },
-    vendor: {
+    is_vendor: {
       type: Boolean,
       default: false,
     },
     vendor_code: {
       type: String,
     },
-    neither: {
+    is_neither: {
       type: Boolean,
       default: false,
     },
-    product_category: [
+    product_category_id: [
       {
         type: mongoose.Schema.Types.ObjectId,
         required: true,
@@ -77,7 +84,7 @@ const brad_register_Schema = new mongoose.Schema(
       enum: ["yes", "no"],
       default: "no",
     },
-    product_distributed_to_country: {
+    product_distributed_to_country_id: {
       type: mongoose.Schema.Types.ObjectId,
     },
     license_information: {
@@ -94,4 +101,4 @@ const brad_register_Schema = new mongoose.Schema(
   { timestamps: true }
 );
 
-module.exports = mongoose.model("brand_registers", brad_register_Schema);
+module.exports = mongoose.model("brands", brad_register_Schema);

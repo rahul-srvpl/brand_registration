@@ -24,6 +24,6 @@ const brandSchema = new Schema({
     }
 }, { timestamps: true, toJSON: { getters: true }, strict: false });
 
-const brand = mongoose.model('brands', brandSchema)
+const brand = mongoose.model('bran', brandSchema)
 
 module.exports = brand;
